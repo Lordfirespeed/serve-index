@@ -227,7 +227,11 @@ serveIndex.json = function _json (req, res, files, next, dir, showUp, icons, pat
 
     // serialize
     var body = JSON.stringify(fileList.map(function (file) {
-      return file.name
+      return {
+        name: file.name,
+        is_file: file.stat.isFile(),
+        is_directory: file.stat.isDirectory(),
+      }
     }))
 
     send(res, 'application/json', body)
